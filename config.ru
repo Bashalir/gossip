@@ -1,9 +1,9 @@
 require 'bundler'
 require 'csv'
-require 'gossip'
 
 Bundler.require
 
-$:.unshift File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require 'controller'
+require 'gossip'
 run ApplicationController
