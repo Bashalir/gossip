@@ -1,5 +1,3 @@
-require 'gossip'
-
 class ApplicationController < Sinatra::Base
   get '/' do
     erb :index, locals: { gossips: Gossip.all }

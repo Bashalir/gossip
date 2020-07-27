@@ -1,5 +1,3 @@
-require 'csv'
-
 class Gossip
   attr_accessor :author, :content, :id
 
@@ -27,16 +25,20 @@ class Gossip
   end
 
   def self.update(id, author, content)
-    modify_gossip = CSV.read('./db/gossip.csv').each_with_index do |gossip, index|
-      if index == id.to_i
-        gossip[author, content]
-      else
-        gossip
-      end
+    modify_gossip = []
+
+    CSV.read('./db/gossip.csv').each_with_index do |gossip, index|
+      modify_gossip << if index == id.to_i
+                         [author, content]
+                       else
+                         gossip
+                       end
     end
+
     File.open('./db/gossip.csv', 'w') { |file| file.truncate(0) }
     modify_gossip.each do |gossip|
       Gossip.new(gossip[0], gossip[1]).save
     end
+
   end
 end
