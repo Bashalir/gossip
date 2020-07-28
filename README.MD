@@ -12,6 +12,7 @@ la version de ruby utilisée est 2.5.1
 
 Pour lancer le serveur
 
+    git clone https://github.com/Bashalir/gossip.git
     bundle install
     shotgun -p 4567
 

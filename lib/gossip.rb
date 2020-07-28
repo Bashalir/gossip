@@ -25,20 +25,18 @@ class Gossip
   end
 
   def self.update(id, author, content)
-    modify_gossip = []
+    all_gossips = all
+    
+# Reset the csv file
+    CSV.open('./db/gossip.csv', 'w')
 
-    CSV.read('./db/gossip.csv').each_with_index do |gossip, index|
-      modify_gossip << if index == id.to_i
-                         [author, content]
-                       else
-                         gossip
-                       end
+    all_gossips.each_with_index do |gossip, index|
+      gossip = if index == id.to_i
+                 Gossip.new(author, content)
+               else
+                 gossip
+                 end
+      gossip.save
     end
-
-    File.open('./db/gossip.csv', 'w') { |file| file.truncate(0) }
-    modify_gossip.each do |gossip|
-      Gossip.new(gossip[0], gossip[1]).save
-    end
-
   end
 end
