@@ -26,10 +26,11 @@ class Gossip
 
   def self.update(id, author, content)
     all_gossips = all
-    
+
 # Reset the csv file
     CSV.open('./db/gossip.csv', 'w')
 
+# Rewrite the csv file
     all_gossips.each_with_index do |gossip, index|
       gossip = if index == id.to_i
                  Gossip.new(author, content)
